@@ -1,0 +1,1015 @@
+---
+title: "Campaign Strategy for Schertz City Council"
+authors: 
+  - name: "Dan Swart, CPA (ret)"
+  - name: "Claude Sonnet 4.5"
+date: today
+date-format: long
+# bibliography: manual-refs.bib
+format:
+  html:
+    resources:
+      - reference-backlinks.js
+    include-after-body:    
+      - text: |
+          # <script type="text/javascript" src="reference-backlinks.js"></script>
+    default: true         
+    code-copy: true
+    code-link: true        # This adds individual buttons
+    code-fold: true        # Hide code by default, show on click
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-block-bg: "#FAEBD7"
+    code-block-border-left: "#31BAE9"
+    embed-resources: true
+    include-in-header:
+      - text: 
+          <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
+      - header.html
+    css:
+      - swart.css
+      - tachyons.min.css
+      - r-colors.css
+    fontsize: 18pt
+    lightbox: true
+    page-layout: full
+    fig-width: 12
+    fig-height: 10
+    fig-dpi: 300
+    html-math-method: katex
+    df-print: paged
+    toc: true
+    toc-float: true
+    citeproc: true
+    link-citations: true
+    linestretch: 1.0
+    
+    
+    
+  typst:
+    fig-width: 12
+    fig-height: 10
+    fig-dpi: 300
+    margin:
+      x: 1in
+      y: 1in
+    toc: true
+    fontsize: 16pt
+    mainfont: "Cabin"
+  
+    
+  revealjs:
+    slide-number: true
+    transition: fade
+    code-overflow: wrap
+    center: true
+    smaller: true
+    scrollable: true
+    chalkboard: true
+    multiplex: false
+    theme: solarized
+    reference-location: margin
+    logo: img/red-cross-640-435.png
+    footer: "Footer text"
+    code-block-height: 650px
+
+
+
+  # docx:
+  #   highlight-style: github
+  #   fig_caption: true
+
+
+
+editor: source
+
+quarto:
+  render:
+    cache-refresh: true
+
+
+# for .qmd filesd
+execute:
+  echo: true
+  message: false
+  warning: false
+  eval: true
+  fig-width: 12
+  fig-height: 10
+
+
+# for .rmd files
+knitr:
+  opts_chunk:
+    echo: true
+    error: false
+    warning: false
+    message: false
+    cache: false
+
+
+---
+
+
+```{r}
+#| label: setup
+#| include: false
+# R version 4.4.3 (2025-02-28)
+# Platform: x86_64-apple-darwin20
+# Running under: macOS Sequoia 15.6.1
+# Rstudio 2025.9.2.418 (Cucumberleaf Sunflower)
+# 
+
+# install.packages(c("mapview", "survey", "srvyr", "arcgislayers"))
+
+# census_api_key("95496766c51541ee6f402c1e1a8658581285b759", install = TRUE, overwrite = TRUE)
+
+
+
+# Force dplyr's select to take precedence
+select <- dplyr::select
+filter <- dplyr::filter
+
+# Options
+options(scipen = 999)
+options(qic.clshade = T) # NO LONGER NEEDED; CHARTS ALL PREPARED WITH GGPLOT2 ONLY
+options(qic.linecol = 'black') # NO LONGER NEEDED; CHARTS ALL PREPARED WITH GGPLOT2 ONLY
+options(qic.signalcol = "firebrick") # NO LONGER NEEDED; CHARTS ALL PREPARED WITH GGPLOT2 ONLY
+options(qic.targetcol = "purple") # NO LONGER NEEDED; CHARTS ALL PREPARED WITH GGPLOT2 ONLY
+options(DT.options = list(dom = 'pBlfrti')) # Add buttons, filtering, and top (t) pagination controls
+options(shiny.maxRequestSize = 50 * 1024^2) # Set upload maximum to 50 MB
+options(tigris_use_cache = TRUE)
+
+
+# Set global theme for consistent plots
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 20) + 
+                   ggplot2::theme(plot.title = ggplot2::element_text(face = "bold",
+                                                                      size = 26),
+                                  plot.subtitle = ggplot2::element_text(face = "bold",
+                                                                         size = 24),
+                                  axis.title.x = ggplot2::element_text(face = "bold",
+                                                                        size = 22),
+                                  axis.title.y = ggplot2::element_text(face = "bold",
+                                                                        size = 22),
+                                  axis.text.x = ggplot2::element_text(face = "bold",
+                                                                       size = 22,
+                                                                       angle = 45,
+                                                                       hjust = 1),
+                                  legend.position = "bottom",
+                                  strip.text = ggplot2::element_text(face = "bold"),
+                                  panel.spacing.x = grid::unit(1.5,
+                                                                "cm"),
+                                  panel.spacing.y = grid::unit(1.5,
+                                                                "cm"),
+                                  plot.margin = ggplot2::margin(20,
+                                                                 20,
+                                                                 20,
+                                                                 20,
+                                                                 "pt")))
+
+
+# Set seed for reproducibility
+set.seed(123)
+
+```
+
+# Executive Summary
+
+This document presents prioritized campaign slogans and differentiation strategies for the Schertz City Council race. The strategies emphasize **limited government competence**, fiscal responsibility, protection of individual liberties and property rights, and data-driven decision-making—all grounded in proven leadership experience. Your campaign combines conservative principles with professional expertise: you believe government should do less, but what it must do, it should do exceptionally well.
+
+# Top-Tier Campaign Slogans
+
+## Primary Slogan Options
+
+```{r}
+#| label: primary-slogans
+
+slogans_primary <- base::data.frame(
+  Priority = base::c(1L, 2L, 3L),
+  Slogan = base::c(
+    "Limited Government. Unlimited Competence.",
+    "Your Property. Your Liberty. Your Schertz.",
+    "Fiscal Discipline. Personal Freedom. Proven Leadership."
+  ),
+  Rationale = base::c(
+    "Captures both conservative principles and professional expertise - government should do less, but do it well",
+    "Emphasizes property rights and individual liberty while showing you represent all of Schertz",
+    "Hits three key conservative themes with credibility from CPA background and school board service"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(slogans_primary) |>
+  flextable::set_header_labels(
+    Priority = "Priority",
+    Slogan = "Campaign Slogan",
+    Rationale = "Strategic Rationale"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Slogan", width = 2.5) |>
+  flextable::width(j = "Rationale", width = 3.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(i = 1, bg = "#e8f4f8", part = "body")
+```
+
+## Secondary Slogans (For Specific Contexts)
+
+```{r}
+#| label: secondary-slogans
+
+slogans_secondary <- base::data.frame(
+  Context = base::c(
+    "Budget/Fiscal Issues",
+    "Growth Management",
+    "Property Rights",
+    "Limited Government",
+    "Individual Liberty",
+    "Personal Responsibility"
+  ),
+  Slogan = base::c(
+    "Your Money. Your City. Your Choice.",
+    "Smart Growth, Not Government Growth",
+    "Protecting Property Rights Since Day One",
+    "Less Government. Better Government.",
+    "Freedom First. Always.",
+    "Solutions, Not Handouts"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(slogans_secondary) |>
+  flextable::set_header_labels(
+    Context = "Use Context",
+    Slogan = "Targeted Slogan"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Context", width = 2) |>
+  flextable::width(j = "Slogan", width = 4) |>
+  flextable::bold(part = "header")
+```
+
+# Core Values Framework
+
+## Conservative Principles in Practice
+
+Your campaign is grounded in bedrock conservative values that distinguish you from technocrats who simply want "better management." You believe in **limited government competence**: government should do less, but what it must do, it should do exceptionally well.
+
+### The Foundation: Reagan's Wisdom Applied to Local Government
+
+> "Government is not the solution to our problems, government IS the problem." — Ronald Reagan
+
+This principle guides your approach to city governance. You're not running to expand government or create new programs—you're running to ensure the *necessary* functions of city government are executed with fiscal discipline and respect for taxpayers.
+
+```{r}
+#| label: core-values
+
+core_values <- base::data.frame(
+  Principle = base::c(
+    "Personal Responsibility",
+    "Private Property Rights",
+    "Limited Government",
+    "Personal Liberty",
+    "Fiscal Discipline"
+  ),
+  What_It_Means_for_Schertz = base::c(
+    "Citizens solve problems; government removes barriers. Not every community issue requires a city program.",
+    "Your property is yours. Zoning and regulation must be minimal, predictable, and respect owners' rights.",
+    "City government should focus on core functions: public safety, infrastructure, essential services. Not social engineering.",
+    "Citizens should be free to live their lives with minimum interference. City ordinances should protect liberty, not restrict it.",
+    "Every tax dollar is someone's hard-earned money. We must maximize value and minimize waste through professional management."
+  ),
+  Your_Differentiation = base::c(
+    "While others promise programs, you promise to empower citizens",
+    "While others see property as something to regulate, you see rights to protect",
+    "While others expand government, you focus on core competence",
+    "While others see problems requiring intervention, you see freedom as the default",
+    "Your CPA background isn't just expertise—it's a commitment to stewardship"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(core_values) |>
+  flextable::set_header_labels(
+    Principle = "Conservative Principle",
+    What_It_Means_for_Schertz = "Applied to City Governance",
+    Your_Differentiation = "How This Sets You Apart"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "What_It_Means_for_Schertz", width = 3) |>
+  flextable::width(j = "Your_Differentiation", width = 2.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(j = "Principle", bg = "#e8f4f8", part = "body") |>
+  flextable::bold(j = "Principle")
+```
+
+### Why This Matters: The Professional Conservative
+
+You're not an ideologue or a grievance candidate. You're a **professional conservative**: someone who brings both principles *and* the expertise to implement them effectively.
+
+**Key Message:**
+
+> "I believe in limited government—which means the government we have must work efficiently and respect taxpayers. As a CPA and school board trustee, I have the professional tools to deliver on conservative principles, not just talk about them."
+
+## The Data-Driven Conservative Framework
+
+Your approach integrates conservative values with analytical rigor:
+
+```{r}
+#| label: values-methodology
+
+methodology <- base::data.frame(
+  Step = base::c(1L, 2L, 3L, 4L),
+  Process = base::c(
+    "Start with Principles",
+    "Apply Data",
+    "Identify Trade-offs",
+    "Choose Limited Solutions"
+  ),
+  Example = base::c(
+    "Does this action respect property rights and personal liberty?",
+    "What does the evidence show about costs, benefits, and unintended consequences?",
+    "Every choice has trade-offs. What are we giving up? What are we gaining?",
+    "Can citizens or markets solve this? If not, what's the *minimum* government action needed?"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(methodology) |>
+  flextable::set_header_labels(
+    Step = "Step",
+    Process = "Decision Framework",
+    Example = "In Practice"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Example", width = 4) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(i = base::c(1L, 4L), bg = "#fff9c4", part = "body")
+```
+
+**This is your unique positioning:** Most conservatives talk about principles. Most technocrats talk about data. You integrate both—conservative values *implemented* through professional competence.
+
+---
+
+# Key Differentiation Strategies
+
+## Priority 1: The Professional Conservative Advantage
+
+### More Than a CPA—A Steward of Taxpayer Money
+
+Your background as a CPA isn't just technical expertise; it's a *commitment to fiscal stewardship* rooted in conservative principles. Every tax dollar represents someone's hard work. Your career has been about maximizing value and minimizing waste.
+
+**Key Messages:**
+
+- "As a CPA, I understand that it's not the government's money—it's *your* money. My job is to protect it."
+- "I don't just believe in fiscal responsibility—I have the professional credentials to deliver it"
+- "Limited government requires professional competence. You need someone who can do more with less."
+- "I've spent my career making every dollar count. That's not a talking point; that's my professional obligation."
+
+**Tactical Applications:**
+
+```{r}
+#| label: cpa-tactics
+
+tactics_cpa <- base::data.frame(
+  Tactic = base::c(
+    "Taxpayer Return Analysis",
+    "Zero-Based Budget Review",
+    "Government Efficiency Audit",
+    "'Your Money' Town Halls"
+  ),
+  Description = base::c(
+    "Show voters what they get for every tax dollar—make government spending transparent and accountable",
+    "Question every line item: Is this essential? Can it be done more efficiently? Can citizens/markets do it better?",
+    "Identify opportunities to reduce costs without reducing service quality through continuous improvement",
+    "Regular forums on 'What you pay vs. what you get'—transparency builds trust and accountability"
+  ),
+  Conservative_Value = base::c(
+    "Accountability to Taxpayers",
+    "Limited Government",
+    "Efficiency & Stewardship",
+    "Transparency & Trust"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(tactics_cpa) |>
+  flextable::set_header_labels(
+    Tactic = "Tactical Approach",
+    Description = "Implementation",
+    Conservative_Value = "Principle in Action"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "Description", width = 3.5) |>
+  flextable::bold(part = "header") |>
+  flextable::color(j = "Conservative_Value", color = "#1565C0") |>
+  flextable::bold(j = "Conservative_Value")
+```
+
+---
+
+## Priority 2: Limited Government Requires Smart Government
+
+Your book on data-driven management demonstrates that effective limited government isn't about doing *nothing*—it's about doing the *essential* exceptionally well.
+
+**Core Positioning:**
+
+> "Ronald Reagan taught us that government is often the problem. But when government *must* act—for public safety, infrastructure, essential services—it must act with competence and fiscal discipline. I bring proven systems for continuous improvement: less government overhead, better citizen outcomes."
+
+**Key Differentiators:**
+
+- You believe government should do *less*, but what it does should be done *better*
+- Your methodology identifies waste, reduces bureaucracy, and maximizes taxpayer value
+- You've proven this works: written the book, applied it successfully on school board
+- Data doesn't lie—it reveals where government can step back and where it must perform
+
+**Campaign Materials:**
+
+```{r}
+#| label: limited-government-materials
+
+materials <- base::data.frame(
+  Material = base::c(
+    "One-Pager: 'Less & Better'",
+    "Website: 'Conservative Principles, Professional Tools'",
+    "Forum Response Framework",
+    "Social Media Series"
+  ),
+  Content_Focus = base::c(
+    "Chart showing where Schertz could reduce spending while improving outcomes",
+    "How limited government principles + Deming methodology = efficient city services",
+    "'Here's what the data shows we can eliminate, streamline, or privatize...'",
+    "Weekly posts: 'Where government should step back' and 'Where we must perform'"
+  ),
+  Conservative_Appeal = base::c("VERY HIGH", "HIGH", "HIGH", "HIGH"),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(materials) |>
+  flextable::set_header_labels(
+    Material = "Campaign Material",
+    Content_Focus = "Content Strategy",
+    Conservative_Appeal = "Values Resonance"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Content_Focus", width = 3.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(
+    i = ~ Conservative_Appeal == "VERY HIGH",
+    bg = "#fff9c4",
+    part = "body"
+  ) |>
+  flextable::color(
+    i = ~ Conservative_Appeal == "VERY HIGH",
+    j = "Conservative_Appeal",
+    color = "#C62828"
+  ) |>
+  flextable::bold(
+    i = ~ Conservative_Appeal == "VERY HIGH",
+    j = "Conservative_Appeal"
+  )
+```
+
+---
+
+## Priority 3: Protecting Liberty, Not Special Interests
+
+Many candidates represent neighborhoods or interest groups. You represent *principles*: individual liberty, property rights, and the freedom of citizens to live without unnecessary government interference.
+
+**Messaging Framework:**
+
+- "I don't represent special interests. I represent *your* interests: keeping government limited and your freedoms protected."
+- "Every new regulation is a restriction on someone's liberty. Every trade-off matters. My job is to protect freedom first."
+- "Property owners have rights. Citizens have liberty. My role isn't to expand government's reach—it's to protect yours."
+
+**Contrast Without Going Negative:**
+
+```{r}
+#| label: contrast-messaging
+
+contrast <- base::data.frame(
+  Their_Approach = base::c(
+    "See problems that need government solutions",
+    "Favor regulations and ordinances",
+    "Represent specific constituencies",
+    "Want government to 'do something'"
+  ),
+  Your_Approach = base::c(
+    "Ask first: Can citizens solve this without government?",
+    "Favor property rights and personal liberty as default",
+    "Represent conservative principles applied to all of Schertz",
+    "Want government to do its job well, then step back"
+  ),
+  Your_Message = base::c(
+    "\"Not every problem needs a government program. Sometimes government IS the problem.\"",
+    "\"Your property is yours. Your liberty is precious. I'll protect both.\"",
+    "\"No special favors. No crony deals. Just principled governance.\"",
+    "\"Better to do three things excellently than ten things poorly.\""
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(contrast) |>
+  flextable::set_header_labels(
+    Their_Approach = "Typical Approach",
+    Your_Approach = "Your Differentiator",
+    Your_Message = "Campaign Message"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "Their_Approach", width = 2) |>
+  flextable::width(j = "Your_Approach", width = 2.5) |>
+  flextable::width(j = "Your_Message", width = 2.5) |>
+  flextable::bold(part = "header") |>
+  flextable::italic(j = "Your_Message") |>
+  flextable::bg(j = "Your_Approach", bg = "#e8f4f8")
+```
+
+### The Anti-Cronyism Message
+
+Your data-driven approach *prevents* special interest capture of government:
+
+> "When decisions are based on data and principles, not politics and favors, taxpayers win. No backroom deals. No special treatment. Just transparent, accountable governance."
+
+---
+
+## Priority 4: The Conservative with Credentials
+
+Your school board service demonstrates you know how to govern according to conservative principles in practice.
+
+**Key Points:**
+
+- You understand public budgets—and how to limit them
+- You've demonstrated fiscal restraint while maintaining quality
+- You've authored substantive work on making government work better with less
+- You bring tested conservative governance, not just campaign promises
+
+**Credibility Builders:**
+
+```{r}
+#| label: credibility-stats
+
+base::set.seed(20251112L)
+
+credibility <- base::data.frame(
+  Credential = base::c(
+    "SCUC-ISD Board Service",
+    "Published Author",
+    "CPA Certification",
+    "Conservative Principles",
+    "Data-Driven Methodology"
+  ),
+  Conservative_Value = base::c(
+    "Proven limited government leadership - volunteer service, no empire building",
+    "Serious commitment to making government more efficient, not bigger",
+    "Professional steward of taxpayer money, not politician spending OPM (other people's money)",
+    "Reagan conservative: government should do less, but do it competently",
+    "Facts and data prevent special interest capture and wasteful spending"
+  ),
+  Campaign_Use = base::c(
+    "VERY HIGH",
+    "HIGH",
+    "VERY HIGH",
+    "VERY HIGH",
+    "HIGH"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(credibility) |>
+  flextable::set_header_labels(
+    Credential = "Your Credential",
+    Conservative_Value = "How It Demonstrates Conservative Values",
+    Campaign_Use = "Campaign Emphasis"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Conservative_Value", width = 3.5) |>
+  flextable::bold(part = "header") |>
+  flextable::color(
+    i = ~ Campaign_Use == "VERY HIGH",
+    j = "Campaign_Use",
+    color = "#C62828"
+  ) |>
+  flextable::bold(
+    i = ~ Campaign_Use == "VERY HIGH",
+    j = "Campaign_Use"
+  )
+```
+
+---
+
+# Campaign Theme Development
+
+## The "Liberty and Limited Government" Framework
+
+Unify your messaging around conservative principles applied practically: government should protect freedom, not expand control.
+
+### Core Narrative Elements
+
+```{r}
+#| label: narrative-structure
+
+narrative <- base::data.frame(
+  Element = base::c("Opening", "Problem", "Solution", "Proof", "Call to Action"),
+  Content = base::c(
+    "Schertz faces a choice: grow with limited, competent government—or grow with bigger, more intrusive government.",
+    "Growth brings pressure to expand government, add regulations, raise taxes. Special interests want favors. Some see every issue as needing a new program.",
+    "Conservative principles with professional execution: protect property rights, limit government to core functions, maximize taxpayer value through fiscal discipline.",
+    "I've proven this works. CPA background means fiscal stewardship. School board service means tested conservative governance. Published methodology means continuous improvement, not empire building.",
+    "Let's keep Schertz free, fiscally sound, and focused on what matters—with principled leadership that respects your liberty and your money."
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(narrative) |>
+  flextable::set_header_labels(
+    Element = "Narrative Element",
+    Content = "Your Message"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "Content", width = 5.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bold(j = "Element") |>
+  flextable::bg(i = base::c(1L, 5L), bg = "#e8f4f8", part = "body")
+```
+
+---
+
+## Addressing the Growth Challenge with Conservative Principles
+
+Growth creates pressure for government expansion. Your message: growth should happen through property rights and private enterprise, not through government programs and increased regulation.
+
+**Sample Language:**
+
+> "Many of us love Schertz exactly as it is. I get that—I do too. But here's the truth: property owners have rights. If someone wants to develop their land within reasonable limits, that's their right. Our job in city government isn't to freeze Schertz in amber or to micro-manage every property decision. Our job is to ensure essential infrastructure keeps pace—roads, water, public safety—without expanding government beyond core functions. That requires fiscal discipline, not empire building. It requires respecting property rights while planning strategically. And it requires leadership that can resist the temptation to regulate every concern or create a new program for every issue."
+
+### The Property Rights Balance
+
+```{r}
+#| label: property-rights-balance
+
+property_framework <- base::data.frame(
+  Challenge = base::c(
+    "Residents want stability",
+    "Property owners have rights",
+    "Growth requires infrastructure",
+    "Taxpayers resist rate increases"
+  ),
+  Conservative_Solution = base::c(
+    "Predictable, minimal regulations—not constant changes or arbitrary restrictions",
+    "Respect private property as fundamental right; regulation only when absolutely necessary",
+    "Impact fees where possible; efficiency improvements to do more with less",
+    "Demonstrate fiscal discipline; show continuous improvement in value for taxpayers"
+  ),
+  Your_Advantage = base::c(
+    "Your methodology identifies stable, sustainable practices",
+    "You understand legal limits and conservative principles of ownership",
+    "Your CPA background finds creative solutions without tax increases",
+    "Your data shows where waste can be eliminated and value maximized"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(property_framework) |>
+  flextable::set_header_labels(
+    Challenge = "The Challenge",
+    Conservative_Solution = "Conservative Approach",
+    Your_Advantage = "Your Unique Contribution"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Conservative_Solution", width = 3) |>
+  flextable::width(j = "Your_Advantage", width = 2.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(j = "Conservative_Solution", bg = "#fff9c4")
+```
+
+---
+
+## Priority 5: Military Community Appeal
+
+Schertz's significant military population (active and retired) naturally aligns with your conservative values and disciplined approach to governance.
+
+**Why Your Message Resonates:**
+
+```{r}
+#| label: military-appeal
+
+military_alignment <- base::data.frame(
+  Military_Value = base::c(
+    "Fiscal Discipline",
+    "Mission Focus",
+    "Data-Driven Decisions",
+    "Accountability",
+    "Service Over Self",
+    "No-Nonsense Leadership"
+  ),
+  Your_Approach = base::c(
+    "CPA background + proven track record of making every dollar count",
+    "Limited government focused on core functions, not scope creep",
+    "Evidence-based methodology, not political positioning or feelings",
+    "Transparent, measurable results with continuous improvement",
+    "Volunteer board service; representing principles, not personal interests",
+    "Reagan conservative who says hard truths about trade-offs and limits"
+  ),
+  Campaign_Message = base::c(
+    "\"Steward of taxpayer money, just like managing a constrained budget\"",
+    "\"Clear mission: protect liberty, ensure safety, maintain infrastructure—nothing more\"",
+    "\"Trust the data, not the politics\"",
+    "\"Measure results, report honestly, improve continuously\"",
+    "\"Not in it for power or favors—in it to serve Schertz\"",
+    "\"Leadership means making tough calls based on principles, not popularity\""
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(military_alignment) |>
+  flextable::set_header_labels(
+    Military_Value = "Military Cultural Value",
+    Your_Approach = "How You Exemplify It",
+    Campaign_Message = "Message to Military Voters"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Your_Approach", width = 3) |>
+  flextable::width(j = "Campaign_Message", width = 2.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(i = base::c(1L, 2L, 6L), bg = "#e8f4f8")
+```
+
+**Specific Engagement Tactics:**
+
+- Attend and speak at military community events
+- Emphasize your understanding of managing under constraints
+- Use language that resonates: "mission," "accountability," "stewardship," "service"
+- Highlight that conservative governance is about discipline, not ideology
+- Connect your data-driven approach to military briefing culture: facts, analysis, recommendations
+
+---
+
+# Tactical Campaign Recommendations
+
+## High-Priority Actions
+
+```{r}
+#| label: tactical-priorities
+
+tactics <- base::data.frame(
+  Priority = base::c(1L, 2L, 3L, 4L, 5L, 6L),
+  Action = base::c(
+    "Articulate 'Limited Government' platform",
+    "Create 'Your Money, Your Liberty' series",
+    "Host 'Fiscal Discipline' town halls",
+    "Develop property rights position paper",
+    "Military community engagement",
+    "Reagan Conservative messaging videos"
+  ),
+  Why_It_Works = base::c(
+    "Clearly differentiates you ideologically while showing competence to implement conservative principles",
+    "Demonstrates analytical capability in accessible format while emphasizing taxpayer focus and individual freedom",
+    "Leverages CPA expertise while educating voters on trade-offs and limits of government",
+    "Shows commitment to fundamental rights; appeals to property owners facing development pressure",
+    "Military population values discipline, data, fiscal responsibility, and service—exactly your strengths",
+    "Short videos explaining how conservative principles guide specific decisions; builds authenticity"
+  ),
+  Timeline = base::c(
+    "Week 1 - foundational message",
+    "Weekly throughout campaign",
+    "Monthly until election",
+    "Week 2",
+    "Ongoing throughout campaign",
+    "Bi-weekly through election"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(tactics) |>
+  flextable::set_header_labels(
+    Priority = "Priority",
+    Action = "Campaign Action",
+    Why_It_Works = "Strategic Value",
+    Timeline = "Suggested Timeline"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Why_It_Works", width = 3) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(i = base::c(1L, 2L), bg = "#e8f5e9", part = "body")
+```
+
+---
+
+## Sample Social Media Content
+
+### Weekly "Your Money, Your Liberty" Posts
+
+Each week, post one chart or data visualization with conservative analysis:
+
+- Week 1: "Where Your Tax Dollars Go—and Where We Can Do Better"
+- Week 2: "Property Rights in Schertz: What You Own vs. What Gets Regulated"  
+- Week 3: "The Cost of Government Growth—Can We Do More With Less?"
+- Week 4: "Infrastructure Without Tax Increases: Finding Efficiency"
+- Week 5: "Regulations That Restrict Your Freedom—Are They Necessary?"
+- Week 6: "Limited Government Success Story: [Example from school board]"
+- (Continue rotating themes)
+
+**Format:** Simple chart + 2-3 sentence analysis with conservative principle + "This is why fiscal discipline and limited government matter."
+
+### Monthly "Reagan Was Right" Video Series
+
+Short (60-90 second) videos connecting Reagan's conservative wisdom to specific city issues:
+
+- "Government as the Problem: Why More Regulations Aren't Always the Answer"
+- "Your Money, Not Theirs: A CPA's View on Fiscal Stewardship"
+- "Freedom First: How I Evaluate Every New Ordinance"
+- "Property Rights Matter: Real Examples from Schertz"
+
+---
+
+## Differentiation Summary Matrix
+
+```{r}
+#| label: differentiation-summary
+
+summary_matrix <- base::data.frame(
+  Attribute = base::c(
+    "Core Philosophy",
+    "Professional Credentials",
+    "Governance Experience",
+    "Decision-Making Approach",
+    "Policy Focus",
+    "Voter Promise"
+  ),
+  Most_Candidates = base::c(
+    "Pragmatic problem-solvers",
+    "General business or community experience",
+    "Limited or no public service background",
+    "Personal judgment and constituent input",
+    "Responsive to specific issues or groups",
+    "To listen and work hard for you"
+  ),
+  Your_Differentiation = base::c(
+    "Reagan conservative: limited government with professional competence",
+    "Retired CPA + Published Author on efficient public management",
+    "Current school board trustee proving conservative governance works",
+    "Data-driven analysis rooted in property rights and personal liberty",
+    "Protect freedom, limit government, maximize taxpayer value",
+    "To serve with fiscal discipline, respect your liberty, and defend your property rights"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(summary_matrix) |>
+  flextable::set_header_labels(
+    Attribute = "Dimension",
+    Most_Candidates = "Typical Candidate Profile",
+    Your_Differentiation = "Your Unique Value"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "Most_Candidates", width = 2.5) |>
+  flextable::width(j = "Your_Differentiation", width = 3) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(j = "Your_Differentiation", bg = "#fff9c4", part = "body") |>
+  flextable::bold(j = "Your_Differentiation")
+```
+
+---
+
+# Key Talking Points for Debates and Forums
+
+## When Asked About Growth
+
+**Your Response Framework:**
+
+"I believe in property rights. Property owners have the right to develop their land within reasonable bounds. Our role in city government isn't to freeze Schertz or micro-manage development—it's to ensure essential infrastructure keeps pace without expanding government unnecessarily. That means focusing on core functions: roads, water, public safety. Not new programs or more bureaucracy. My CPA background and data-driven approach help us plan infrastructure efficiently and find ways to do more with less taxpayer money."
+
+## When Asked About Taxes
+
+**Your Response Framework:**
+
+"As Ronald Reagan reminded us, it's not the government's money—it's *your* money. As a CPA, I've spent my career maximizing value and minimizing waste. Every dollar you send to city hall represents your hard work. My job is to protect it through fiscal discipline and continuous improvement. We need to constantly ask: Is this expenditure essential? Can we do it more efficiently? Can the private sector do it better? I bring the professional tools to actually deliver on fiscal responsibility, not just promise it."
+
+## When Asked About Regulations and Ordinances
+
+**Your Response Framework:**
+
+"I start from a position of liberty. Citizens should be free to use their property and live their lives without unnecessary government interference. Every regulation restricts someone's freedom, so the burden of proof should be on government to show why it's absolutely necessary—not on citizens to justify their liberty. I'll apply rigorous analysis to proposed regulations: What problem are we solving? Is government action required? What's the least restrictive solution? Property rights and personal freedom are the default; government restriction requires exceptional justification."
+
+## When Asked What Makes You Different
+
+**Your Response Framework:**
+
+"Most candidates mean well. I mean well *plus* I bring professional credentials in exactly what Schertz needs: fiscal stewardship, data-driven efficiency, and proven conservative governance. I'm a CPA—that's not a talking point, that's professional accountability for taxpayer money. I've served on the school board—that's tested limited government leadership, not campaign promises. I've authored a book on making public institutions work better with less—that's a methodology, not just opinions. And I'm guided by conservative principles: property rights, personal liberty, limited government, and fiscal discipline. I can actually *deliver* on these values because I have the tools and the track record."
+
+---
+
+# Closing Recommendation
+
+Your strongest differentiators are:
+
+1. **Conservative principles clearly articulated** = ideological positioning that resonates with Schertz voters
+2. **CPA credential** = instant credibility that you'll protect taxpayer money
+3. **Professional methodology for limited government** = shows *how* you'll implement conservative values
+4. **School board experience** = proof you can govern conservatively in practice
+5. **Property rights and liberty focus** = distinguishes you from candidates who see government as the solution
+
+## Recommended Primary Slogan
+
+**"Limited Government. Unlimited Competence."**
+
+This slogan:
+
+- Captures core conservative principle (limited government)
+- Emphasizes professional capability (competence)
+- Promises efficiency: less government that works better
+- Differentiates from big-government candidates and inexperienced candidates
+- Appeals to fiscal conservatives and liberty-minded voters
+- Memorable and authentic to your background
+
+## Recommended Tagline/Secondary Message
+
+**"Your Property. Your Liberty. Your Schertz."**
+
+This captures your focus on protecting individual rights while emphasizing that you serve all citizens of Schertz.
+
+## Alternative Strong Option
+
+**"Fiscal Discipline. Personal Freedom. Proven Leadership."**
+
+This hits three key themes and pairs conservative values with demonstrated competence.
+
+---
+
+# Implementation Checklist
+
+```{r}
+#| label: implementation-checklist
+
+checklist <- base::data.frame(
+  Task = base::c(
+    "Finalize 'Limited Government' platform statement",
+    "Develop property rights position paper",
+    "Create 'Your Money, Your Liberty' content calendar",
+    "Prepare Reagan quote integrations for stump speech",
+    "Schedule military community events",
+    "Develop conservative values talking points for forums",
+    "Create website section on conservative principles",
+    "Prepare 'Reagan Was Right' video scripts",
+    "Build fiscal stewardship one-pagers",
+    "Plan town halls on limited government and efficiency"
+  ),
+  Priority = base::c("VERY HIGH", "HIGH", "HIGH", "HIGH", "HIGH", "VERY HIGH", "VERY HIGH", "MEDIUM", "HIGH", "MEDIUM"),
+  Timeline = base::c(
+    "Week 1",
+    "Week 1-2",
+    "Week 1",
+    "Week 1",
+    "Ongoing",
+    "Week 1",
+    "Weeks 1-2",
+    "Weeks 2-4",
+    "Week 2",
+    "Weeks 2-4"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(checklist) |>
+  flextable::set_header_labels(
+    Task = "Campaign Task",
+    Priority = "Priority Level",
+    Timeline = "Suggested Timeline"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Task", width = 4) |>
+  flextable::bold(part = "header") |>
+  flextable::color(
+    i = ~ Priority == "HIGH",
+    j = "Priority",
+    color = "#C62828"
+  ) |>
+  flextable::bold(
+    i = ~ Priority == "HIGH",
+    j = "Priority"
+  )
+```
+
+---
+
+**Final Note:** Your competitive advantage lies in being *authentically conservative with professional credentials*. You're not just another candidate who talks about fiscal responsibility—you're a CPA. You're not just another candidate who says they believe in limited government—you've written the book on making it work efficiently. You're not just another candidate who promises to protect property rights—you have a philosophical framework and proven methodology. Every campaign communication should reinforce that you bring **conservative principles + professional competence**. That's a combination your competitors cannot credibly match.
+
+The Reagan quote isn't just rhetoric for you—it's the foundation of your governance philosophy, backed by the tools to actually implement it. That authenticity will resonate with Schertz voters.
