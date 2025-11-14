@@ -1,0 +1,1151 @@
+---
+title: "People, Not Politics"
+subtitle: "Campaign Strategy for Schertz City Council"
+authors: 
+  - name: "Dan Swart, CPA (ret)"
+  - name: "Claude Sonnet 4.5"
+date: today
+date-format: long
+# bibliography: manual-refs.bib
+format:
+  html:
+    resources:
+      - reference-backlinks.js
+    include-after-body:    
+      - text: |
+          # <script type="text/javascript" src="reference-backlinks.js"></script>
+    default: true         
+    code-copy: true
+    code-link: true        # This adds individual buttons
+    code-fold: true        # Hide code by default, show on click
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-block-bg: "#FAEBD7"
+    code-block-border-left: "#31BAE9"
+    embed-resources: true
+    include-in-header:
+      - text: 
+          <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Cabin&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+          <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
+      - header.html
+    css:
+      - swart.css
+      - tachyons.min.css
+      - r-colors.css
+    fontsize: 18pt
+    lightbox: true
+    page-layout: full
+    fig-width: 12
+    fig-height: 10
+    fig-dpi: 300
+    html-math-method: katex
+    df-print: paged
+    toc: true
+    toc-float: true
+    citeproc: true
+    link-citations: true
+    linestretch: 1.0
+    
+    
+    
+  typst:
+    fig-width: 12
+    fig-height: 10
+    fig-dpi: 300
+    margin:
+      x: 1in
+      y: 1in
+    toc: true
+    fontsize: 14pt
+    mainfont: "Cabin"
+  
+    
+  revealjs:
+    slide-number: true
+    transition: fade
+    code-overflow: wrap
+    center: true
+    smaller: true
+    scrollable: true
+    chalkboard: true
+    multiplex: false
+    theme: solarized
+    reference-location: margin
+    logo: img/red-cross-640-435.png
+    footer: "Footer text"
+    code-block-height: 650px
+
+
+
+  # docx:
+  #   highlight-style: github
+  #   fig_caption: true
+
+
+
+editor: source
+
+quarto:
+  render:
+    cache-refresh: true
+
+
+# for .qmd filesd
+execute:
+  echo: false
+  message: false
+  warning: false
+  eval: true
+  fig-width: 12
+  fig-height: 10
+
+
+# for .rmd files
+knitr:
+  opts_chunk:
+    echo: false
+    error: false
+    warning: false
+    message: false
+    cache: false
+
+
+---
+
+
+```{r}
+#| label: setup
+#| include: false
+# R version 4.4.3 (2025-02-28)
+# Platform: x86_64-apple-darwin20
+# Running under: macOS Sequoia 15.6.1
+# Rstudio 2025.9.2.418 (Cucumberleaf Sunflower)
+# 
+
+# install.packages(c("mapview", "survey", "srvyr", "arcgislayers"))
+
+# census_api_key("95496766c51541ee6f402c1e1a8658581285b759", install = TRUE, overwrite = TRUE)
+
+
+# # load libraries
+
+# library(BayesFactor) # Computation of Bayes Factors for Common Designs
+# library(boot) # Bootstrap Functions
+# library(broom) # Convert Statistical Objects into Tidy Tibbles
+# library(colorspace) # A Toolbox for Manipulating and Assessing Colors and Palettes
+# library(camcorder) # Record Your Plot History
+# library(car) # Companion to Applied Regression
+# library(causaldata) # Example Data Sets for Causal Inference Textbooks
+# library(corrplot) # Visualization of a Correlation Matrix
+# library(cowplot) # Streamlined Plot Theme and Plot Annotations for 'ggplot2'
+# library(dagitty) # Graphical Analysis of Structural Causal Models  
+# library(DiagrammeR) # Graph/Network Visualization 
+# library(dlookr) # Tools for Data Diagnosis, Exploration, Transformation 
+# library(dplyr) # A Grammar of Data Manipulation
+# library(DT) # A Wrapper of the JavaScript Library 'DataTables'
+# library(dutchmasters) # Color Palettes based on Famous Paintings 
+# library(flexdashboard) # R Markdown Format for Flexible Dashboards
+# library(flextable) # Functions for Tabular Reporting  
+# library(forcats) # Tools for Working with Categorical Variables (Factors)
+# library(gganimate) # A Grammar of Animated Graphics
+# library(ggcorrplot) # Visualization of a Correlation Matrix using 'ggplot2'
+# library(ggdag) # Analyze and Create Elegant Directed Acyclic Graphs      
+# library(ggforce) # Accelerating 'ggplot2' 
+# library(gghighlight) # Highlight Lines and Points in 'ggplot2' 
+# library(ggplot2) # Create Elegant Data Visualizations Using the Grammar of Graphics
+# library(ggokabeito) # 'Okabe-Ito' Scales for 'ggplot2' and 'ggraph'
+# library(ggpubr) # 'ggplot2' Based Publication Ready Plots
+# library(ggrepel) # Automatically Position Non-Overlapping Text Labels with 'ggplot2'
+# library(ggtext) # Improved Text Rendering Support for 'ggplot2' 
+# library(ggthemes) # Extra Themes, Scales and Geoms for 'ggplot2'
+# library(glue) # Interpreted String Literals    
+# library(grid) # The Grid Graphics Package
+# library(gt) # Easily Create Presentation-Ready Display Tables
+# library(gtExtras) # Extending 'gt' for Beautiful HTML Tables
+# library(halfmoon) # Techniques to Build Better Balance
+# library(haven) # Import and Export 'SPSS', 'Stata' and 'SAS' Files
+# library(here) # A Simpler Way to Find Your Files
+# library(htmltools) # Tools for HTML
+# library(htmlwidgets) # HTML Widgets for R
+# library(janitor) # Simple Tools for Examining and Cleaning Dirty Data 
+# library(kableExtra) # Construct Complex Table with 'kable' and Pipe Syntax
+# library(knitr) # A General-Purpose Package for Dynamic Report Generation in R   
+# library(lavaan) # Latent Variable Analysis     
+# library(lubridate) # Make Dealing with Dates a Little Easier
+# library(monochromeR) # Easily Create, View and Use Monochrome Color Palettes 
+# library(paletteer) # Comprehensive Collection of Color Palettes 
+# library(patchwork) # The Composer of Plots
+# library(plotly) # Create Interactive Web Graphics via 'plotly.js'
+# library(ppcor) # Partial and Semi-Partial (Part) Correlation
+# library(propensity) # A Toolkit for Calculating and Working with Propensity Scores
+# library(prettycode) # Pretty Print R Code in the Terminal
+# library(PSW) # Propensity Score Weighting Methods for Dichotomous Treatments
+# library(purrr) # Functional Programming Tools
+# library(pwr) # Basic Functions for Power Analysis
+# library(qgraph) # Graph Plotting Methods, Psychometric Data Visualization and Graphical Model Estimation
+# library(qicharts2) # Quality Improvement Charts
+# library(RColorBrewer) # ColorBrewer Palettes 
+# library(readr) # Read Rectangular Text Data
+# library(readxl) # Read Excel Files
+# library(rethinking) # Statistical Rethinking book package
+# library(rlang) # Functions for Base Types and Core R and 'Tidyverse' Features
+# library(rsample) # General Resampling Infrastructure
+# library(scales) # Scale Functions for Visualization
+# library(shiny) # Web Application Framework for R
+# library(shinyobjects) # Access Reactive Data Interactively   
+# library(skimr) # Compact and Flexible Summaries of Data
+# library(stringr) # Simple, Consistent Wrappers for Common String Operations
+# library(tibble) # Simple Data Frames
+# library(tidycensus) # Load US Census Boundary and Attribute Data as 'tidyverse' and 'sf'-Ready Data Frames
+# library(tidylog) # Logging for 'dplyr' and 'tidyr' Functions
+# library(tidyr) # Tidy Messy Data
+# library(tidytext) # Text Mining using 'dplyr', 'ggplot2', and Other Tidy Tools 
+# library(tinytable)
+# library(tsibble) # Tidy Temporal Data Frames and Tools        
+# library(viridis) # Colorblind-Friendly Color Maps for R 
+# library(visdat) # Preliminary Visualization of Data
+# library(vroom) # Read and Write Rectangular Text Data Quickly    
+# library(wesanderson) # A Wes Anderson Palette Generator 
+# library(writexl) # Export Data Frames to Excel 'xlsx' Format 
+# library(WRS2) # A Collection of Robust Statistical Methods
+
+
+
+# Force dplyr's select to take precedence
+select <- dplyr::select
+filter <- dplyr::filter
+
+# Options
+options(scipen = 999)
+options(qic.clshade = T) # NO LONGER NEEDED; CHARTS ALL PREPARED WITH GGPLOT2 ONLY
+options(qic.linecol = 'black') # NO LONGER NEEDED; CHARTS ALL PREPARED WITH GGPLOT2 ONLY
+options(qic.signalcol = "firebrick") # NO LONGER NEEDED; CHARTS ALL PREPARED WITH GGPLOT2 ONLY
+options(qic.targetcol = "purple") # NO LONGER NEEDED; CHARTS ALL PREPARED WITH GGPLOT2 ONLY
+options(DT.options = list(dom = 'pBlfrti')) # Add buttons, filtering, and top (t) pagination controls
+options(shiny.maxRequestSize = 50 * 1024^2) # Set upload maximum to 50 MB
+options(tigris_use_cache = TRUE)
+
+
+# Set global theme for consistent plots
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 20) + 
+                   ggplot2::theme(plot.title = ggplot2::element_text(face = "bold",
+                                                                      size = 26),
+                                  plot.subtitle = ggplot2::element_text(face = "bold",
+                                                                         size = 24),
+                                  axis.title.x = ggplot2::element_text(face = "bold",
+                                                                        size = 22),
+                                  axis.title.y = ggplot2::element_text(face = "bold",
+                                                                        size = 22),
+                                  axis.text.x = ggplot2::element_text(face = "bold",
+                                                                       size = 22,
+                                                                       angle = 45,
+                                                                       hjust = 1),
+                                  legend.position = "bottom",
+                                  strip.text = ggplot2::element_text(face = "bold"),
+                                  panel.spacing.x = grid::unit(1.5,
+                                                                "cm"),
+                                  panel.spacing.y = grid::unit(1.5,
+                                                                "cm"),
+                                  plot.margin = ggplot2::margin(20,
+                                                                 20,
+                                                                 20,
+                                                                 20,
+                                                                 "pt")))
+
+
+# Set seed for reproducibility
+set.seed(123)
+
+```
+
+# Executive Summary
+
+This campaign strategy centers on a unifying message: **People, Not Politics**. Your approach emphasizes professional competence, community service, and data-driven problem-solving that transcends political divisions. You bring proven leadership, fiscal expertise, and a commitment to serving all residents of Schertz—not special interests or political factions. This document presents slogans, messaging frameworks, and tactical approaches that position you as the candidate focused on solutions, not politics.
+
+# Core Campaign Message
+
+## "People, Not Politics"
+
+This central message captures your entire candidacy:
+
+- **People First:** You serve residents, not political parties or special interests
+- **Solutions Over Ideology:** You use data and evidence to find what works
+- **Unity Over Division:** You bring people together rather than driving them apart
+- **Service Over Self:** Your volunteer service demonstrates commitment to community
+- **Competence Over Rhetoric:** Your professional credentials back up your promises
+
+# Primary Campaign Slogans
+
+```{r}
+#| label: primary-slogans
+
+slogans_primary <- base::data.frame(
+  Priority = base::c(1L, 2L, 3L),
+  Slogan = base::c(
+    "People, Not Politics",
+    "Serving All - Win-Win",
+    "Leadership That Listens.  Solutions That Work."
+  ),
+  Rationale = base::c(
+    "Clear, memorable message that transcends partisan divisions and emphasizes unity",
+    "Emphasizes inclusive service to entire community, not factions or special interests",
+    "Combines your professional problem-solving approach with accessibility and responsiveness"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(slogans_primary) |>
+  flextable::set_header_labels(
+    Priority = "Priority",
+    Slogan = "Campaign Slogan",
+    Rationale = "Strategic Value"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Slogan", width = 2.5) |>
+  flextable::width(j = "Rationale", width = 3.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(i = 1, bg = "#e8f4f8", part = "body")
+```
+
+## Secondary Message Themes
+
+```{r}
+#| label: secondary-themes
+
+themes_secondary <- base::data.frame(
+  Context = base::c(
+    "Unity",
+    "Problem-Solving",
+    "Fiscal Stewardship",
+    "Transparent Governance",
+    "Leadership",
+    "Experience & Competence"
+  ),
+  Message = base::c(
+    "Our Community. Our Schertz.",
+    "Real Solutions for Real People",
+    "Your Money. Your City. Managed Wisely.",
+    "Open. Honest. Accountable.",
+    "Every Voice and Every Neighborhood Deserves to be Heard.",
+    "Experience You Can Trust. Results You Can See."
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(themes_secondary) |>
+  flextable::set_header_labels(
+    Context = "Theme Context",
+    Message = "Campaign Message"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Context", width = 2) |>
+  flextable::width(j = "Message", width = 4) |>
+  flextable::bold(part = "header")
+```
+
+# Campaign Values Framework
+
+## What "People, Not Politics" Means in Practice
+
+```{r}
+#| label: core-values
+
+core_values <- base::data.frame(
+  Value = base::c(
+    "Community Over Politics",
+    "Evidence Over Ideology",
+    "Service Over Self",
+    "Unity Over Division",
+    "Results Over Rhetoric"
+  ),
+  What_It_Means = base::c(
+    "You work for residents—all residents—not political parties, donors, or special interests. Every decision serves the community.",
+    "You use data, analysis, and proven methods to find solutions that work, regardless of where they come from politically.",
+    "You serve on the school board as a volunteer. You're running to serve Schertz, not advance a political career or personal agenda.",
+    "You bring people together to solve problems. You build bridges, not walls. You find common ground, not fault lines.",
+    "You deliver tangible outcomes through professional competence. Your track record speaks louder than campaign promises."
+  ),
+  Your_Strength = base::c(
+    "Your school board service proves you can work with diverse viewpoints and serve the whole community",
+    "Your CPA background and published methodology demonstrate analytical rigor without partisan bias",
+    "Your volunteer public service and professional background show genuine commitment to community",
+    "Your focus on data-driven solutions naturally transcends political divisions",
+    "Your proven track record on school board and professional credentials provide concrete evidence of competence"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(core_values) |>
+  flextable::set_header_labels(
+    Value = "Core Value",
+    What_It_Means = "In Practice",
+    Your_Strength = "Why You Embody This"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "What_It_Means", width = 3) |>
+  flextable::width(j = "Your_Strength", width = 2.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(j = "Value", bg = "#e8f4f8", part = "body") |>
+  flextable::bold(j = "Value")
+```
+
+## Your Approach to Decision-Making
+
+You don't start with politics—you start with people and problems.
+
+```{r}
+#| label: decision-framework
+
+decision_framework <- base::data.frame(
+  Step = base::c(1L, 2L, 3L, 4L, 5L),
+  Process = base::c(
+    "Listen to the Community",
+    "Analyze the Data",
+    "Identify Trade-offs",
+    "Find Common Ground",
+    "Implement & Measure"
+  ),
+  Example = base::c(
+    "What do residents actually need? What are they experiencing? Engage all neighborhoods.",
+    "What does the evidence show? What's worked elsewhere? What are the costs and benefits?",
+    "Every choice involves trade-offs. Be honest about what we're gaining and what we're giving up.",
+    "Find solutions that serve the broadest community benefit. Build consensus where possible.",
+    "Deliver results, measure outcomes, adjust based on what works. Continuous improvement."
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(decision_framework) |>
+  flextable::set_header_labels(
+    Step = "Step",
+    Process = "Your Approach",
+    Example = "In Practice"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Example", width = 4) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(i = base::c(1L, 5L), bg = "#fff9c4", part = "body")
+```
+
+**Key Message:** This process serves people and produces results—politics doesn't enter the equation.
+
+---
+
+# Key Differentiation Strategies
+
+## Priority 1: Leadership
+
+### Beyond Politics: Professional Competence in Service
+
+You bring professional expertise without political baggage. Your CPA background means fiscal responsibility. Your school board service means tested leadership. Your data-driven approach means evidence-based decisions.
+
+**Key Messages:**
+
+- "I'm not running because of politics—I'm running because I have the skills Schertz needs"
+- "My commitment is to residents, not to any political agenda"
+- "Professional competence shouldn't be political"
+- "I work for you. All of you. That's what public service means."
+
+**Campaign Tactics:**
+
+```{r}
+#| label: leadership-tactics
+
+tactics_professional <- base::data.frame(
+  Tactic = base::c(
+    "Community Listening Tours",
+    "Transparent Budget Analysis",
+    "Problem-Solving Forums",
+    "Neighborhood Engagement"
+  ),
+  Description = base::c(
+    "Visit every neighborhood, listen to concerns, take notes. Show you're accessible to everyone.",
+    "Walk residents through city finances in plain language. Demystify budgets. Build trust.",
+    "Host town halls focused on specific challenges. Facilitate discussion. Find common ground.",
+    "Regular presence in all parts of Schertz—not just political strongholds or friendly areas."
+  ),
+  Why_It_Works = base::c(
+    "Demonstrates genuine interest in all residents, not just voters or supporters",
+    "Transparency builds trust; professional expertise without political spin",
+    "Shows you facilitate solutions rather than push agendas",
+    "Proves your commitment to serving entire community equally"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(tactics_professional) |>
+  flextable::set_header_labels(
+    Tactic = "Campaign Tactic",
+    Description = "Implementation",
+    Why_It_Works = "Impact"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "Description", width = 3) |>
+  flextable::width(j = "Why_It_Works", width = 2.5) |>
+  flextable::bold(part = "header")
+```
+
+---
+
+## Priority 2: Evidence-Based Problem Solving
+
+Your book on data-driven management proves you believe in finding what works—not what fits a political narrative.
+
+**Core Positioning:**
+
+> "I don't care if an idea is Republican or Democrat. I care if it works. I use data, evidence, and proven methods to solve problems for real people."
+
+**Key Differentiators:**
+
+- You have a systematic, non-partisan methodology for problem-solving
+- You've proven this works in your school board service
+- Your approach naturally brings people together around evidence rather than dividing them along political lines
+- You measure results, not political points
+
+**Campaign Materials:**
+
+```{r}
+#| label: evidence-based-materials
+
+materials_evidence <- base::data.frame(
+  Material = base::c(
+    "One-Pager: 'How I Make Decisions'",
+    "Website: 'Solutions Over Politics'",
+    "Forum Talking Points",
+    "Case Studies from School Board"
+  ),
+  Content = base::c(
+    "Visual flowchart showing your evidence-based decision process—no mention of politics",
+    "Examples of problems solved through data and analysis, featuring your methodology",
+    "For every issue: 'Here's what the data shows' not 'Here's what my party believes'",
+    "Real examples where you brought diverse stakeholders together for community benefit"
+  ),
+  Appeal = base::c("VERY HIGH", "HIGH", "HIGH", "HIGH"),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(materials_evidence) |>
+  flextable::set_header_labels(
+    Material = "Campaign Material",
+    Content = "Focus",
+    Appeal = "Broad Appeal"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Content", width = 4) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(
+    i = ~ Appeal == "VERY HIGH",
+    bg = "#fff9c4",
+    part = "body"
+  )
+```
+
+---
+
+## Priority 3: Inclusive Community Leadership
+
+You serve all of Schertz, not just those who agree with you politically.
+
+**Messaging Framework:**
+
+- "Every neighborhood matters. Every resident deserves responsive, competent leadership."
+- "I don't represent a party or faction—I represent Schertz"
+- "Your concerns are my concerns, regardless of how you vote"
+- "Building community means including everyone"
+
+**Contrast Without Going Negative:**
+
+```{r}
+#| label: contrast-messaging
+
+contrast <- base::data.frame(
+  Political_Approach = base::c(
+    "Represent party or faction",
+    "Push ideological agenda",
+    "Divide into 'us vs. them'",
+    "Focus on winning arguments"
+  ),
+  Your_Approach = base::c(
+    "Represent entire community",
+    "Solve practical problems",
+    "Build consensus and unity",
+    "Focus on delivering results"
+  ),
+  Your_Message = base::c(
+    "\"I work for all of Schertz—not just those who voted for me\"",
+    "\"Real people need real solutions, not political talking points\"",
+    "\"We have more in common than what divides us\"",
+    "\"My job is to deliver results, not win political battles\""
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(contrast) |>
+  flextable::set_header_labels(
+    Political_Approach = "Political Approach",
+    Your_Approach = "Your Approach",
+    Your_Message = "Campaign Message"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "Political_Approach", width = 2) |>
+  flextable::width(j = "Your_Approach", width = 2) |>
+  flextable::width(j = "Your_Message", width = 2.5) |>
+  flextable::bold(part = "header") |>
+  flextable::italic(j = "Your_Message") |>
+  flextable::bg(j = "Your_Approach", bg = "#e8f4f8")
+```
+
+---
+
+## Priority 4: Proven Track Record of Service
+
+Your school board service demonstrates you can lead without politics getting in the way.
+
+**Key Points:**
+
+- You've served as an elected volunteer—proving commitment to service over personal gain
+- You've worked with diverse stakeholders to achieve community benefit
+- You've demonstrated fiscal responsibility and transparent governance
+- You've shown you can make tough decisions based on what's best for the community
+
+**Credibility Builders:**
+
+```{r}
+#| label: credibility-track-record
+
+credibility <- base::data.frame(
+  Credential = base::c(
+    "School Board Trustee",
+    "CPA Credential",
+    "Published Author",
+    "Data-Driven Methodology",
+    "Community Volunteer"
+  ),
+  What_Voters_See = base::c(
+    "Already serving community as elected official—proven leadership without political drama",
+    "Professional expertise in financial stewardship—competence you can trust",
+    "Serious commitment to public sector improvement—not just campaign promises",
+    "Evidence-based decision making that serves community, not ideology",
+    "Service-oriented—running to contribute, not to advance political career"
+  ),
+  Campaign_Use = base::c(
+    "VERY HIGH",
+    "VERY HIGH",
+    "HIGH",
+    "HIGH",
+    "HIGH"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(credibility) |>
+  flextable::set_header_labels(
+    Credential = "Your Credential",
+    What_Voters_See = "Voter Perception",
+    Campaign_Use = "Emphasis Level"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "What_Voters_See", width = 3.5) |>
+  flextable::bold(part = "header") |>
+  flextable::color(
+    i = ~ Campaign_Use == "VERY HIGH",
+    j = "Campaign_Use",
+    color = "#1565C0"
+  ) |>
+  flextable::bold(
+    i = ~ Campaign_Use == "VERY HIGH",
+    j = "Campaign_Use"
+  )
+```
+
+---
+
+# Campaign Narrative Framework
+
+## The "People, Not Politics" Story
+
+```{r}
+#| label: narrative-arc
+
+narrative <- base::data.frame(
+  Element = base::c("Opening", "Challenge", "Your Solution", "Your Proof", "Call to Action"),
+  Content = base::c(
+    "Schertz is growing and changing. We need leadership that brings our community together, not drives us apart.",
+    "Too often, politics gets in the way of progress. Special interests. Partisan bickering. Ideology over practicality. People get lost in the noise.",
+    "Leadership focused on people, not politics. Professional competence without political baggage. Data-driven solutions that work for everyone. Inclusive governance that serves all of Schertz.",
+    "I've proven this approach works. On the school board, I've brought people together to serve students and families. As a CPA, I've demonstrated fiscal stewardship. My methodology is about results, not rhetoric.",
+    "Let's build a Schertz where people matter more than politics. Where competence matters more than connections. Where we work together for our shared community. Join me."
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(narrative) |>
+  flextable::set_header_labels(
+    Element = "Story Element",
+    Content = "Your Message"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "Content", width = 5.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bold(j = "Element") |>
+  flextable::bg(i = base::c(1L, 5L), bg = "#e8f4f8", part = "body")
+```
+
+---
+
+## Addressing Growth and Change
+
+Growth creates tension, but it doesn't have to create political division.
+
+**Your Unifying Message:**
+
+> "Schertz is growing. Some see opportunity; others see uncertainty. I see our shared community. Growth requires planning, investment, and tough choices—but these aren't political issues. They're practical challenges that require professional competence and community engagement. I bring both. My job is to listen to all voices, analyze the options, and help our community make informed decisions together. That's leadership focused on people, not politics."
+
+### Bringing the Community Together on Growth
+
+```{r}
+#| label: growth-framework
+
+growth_framework <- base::data.frame(
+  Concern = base::c(
+    "Long-time residents worry about change",
+    "Newcomers want quality services",
+    "Business owners need infrastructure",
+    "Taxpayers resist rate increases",
+    "Neighborhoods want their voices heard"
+  ),
+  Your_Approach = base::c(
+    "Honor Schertz's character while planning thoughtfully for necessary evolution",
+    "Deliver efficient, effective city services through professional management",
+    "Plan infrastructure strategically using data-driven analysis and fiscal discipline",
+    "Maximize every tax dollar through continuous improvement and transparency",
+    "Engage all neighborhoods equally in decision-making; no special treatment"
+  ),
+  Unifying_Message = base::c(
+    "\"We can preserve what we love while preparing for what's coming\"",
+    "\"Quality services come from competent management, not higher budgets\"",
+    "\"Strategic planning today prevents crisis spending tomorrow\"",
+    "\"Fiscal responsibility serves everyone—it's not political\"",
+    "\"Every voice matters. Every neighborhood deserves to be heard.\""
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(growth_framework) |>
+  flextable::set_header_labels(
+    Concern = "Community Concern",
+    Your_Approach = "How You Address It",
+    Unifying_Message = "Your Message"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Your_Approach", width = 2.5) |>
+  flextable::width(j = "Unifying_Message", width = 2.5) |>
+  flextable::bold(part = "header") |>
+  flextable::italic(j = "Unifying_Message")
+```
+
+---
+
+# Key Talking Points for Debates and Forums
+
+## When Asked About Your Background
+
+**Your Response:**
+
+"I'm a retired CPA and currently serve on the SCUC-ISD school board. I've spent my career in fiscal management and public service—not in politics. I bring professional expertise in exactly what cities need: budget analysis, strategic planning, and continuous improvement. But more than that, I bring a commitment to serving people, not advancing political agendas. I've written about data-driven management in public institutions because I believe in finding solutions that work, regardless of where they come from politically. My approach is simple: listen to the community, analyze the options, make informed decisions, deliver results, and measure outcomes. That's what people deserve from their city council."
+
+## When Asked About Specific Issues
+
+**Your Framework:**
+
+"Let me start by acknowledging the different perspectives on this issue. [Summarize viewpoints]. My approach is to gather the relevant data, engage the affected community members, analyze our options honestly—including trade-offs—and work toward solutions that serve the broadest community benefit. I don't have a political litmus test for good ideas. I have a practical test: Does it work? Can we afford it? Does it serve our residents? Let's focus on finding answers to those questions together."
+
+## When Asked About Working with Others
+
+**Your Response:**
+
+"City council isn't about political parties—it's about community service. I've demonstrated on the school board that I can work effectively with people who have different viewpoints because we focus on what matters: serving students and families. The same principle applies to city council. Schertz residents don't care about political drama—they care about good schools, safe streets, reliable infrastructure, and responsive city services. My job is to deliver those things through professional competence and collaborative leadership. I work with anyone who wants to serve Schertz effectively. Period."
+
+## When Asked What Makes You Different
+
+**Your Response:**
+
+"I'm focused on people, not politics. Many candidates have good intentions, but they often come with political baggage or special interest connections. I bring professional credentials—I'm a CPA, I've served on the school board, I've published work on data-driven public management—but I leave politics at the door. My commitment is to serve all of Schertz with competence and integrity. I use data and evidence to make decisions. I engage the entire community in problem-solving. And I measure results, not political victories. That's the difference: solutions over ideology, service over self-interest, people over politics."
+
+---
+
+# Differentiation Summary
+
+```{r}
+#| label: differentiation-matrix
+
+differentiation <- base::data.frame(
+  Dimension = base::c(
+    "Core Focus",
+    "Decision-Making",
+    "Community Approach",
+    "Credentials",
+    "Campaign Style",
+    "Voter Promise"
+  ),
+  Political_Candidates = base::c(
+    "Advance party platform or ideology",
+    "Based on political positions or special interests",
+    "Rally supporters; mobilize base",
+    "Political connections or activist credentials",
+    "Attack opponents; emphasize differences",
+    "To fight for their side"
+  ),
+  Your_Differentiation = base::c(
+    "Serve people and community",
+    "Based on data, evidence, and community input",
+    "Include everyone; build consensus",
+    "Professional expertise (CPA) + Proven service (School Board)",
+    "Positive solutions; emphasize unity",
+    "To work for everyone with competence and integrity"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(differentiation) |>
+  flextable::set_header_labels(
+    Dimension = "Aspect",
+    Political_Candidates = "Political Approach",
+    Your_Differentiation = "Your Approach"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "Political_Candidates", width = 2.5) |>
+  flextable::width(j = "Your_Differentiation", width = 3) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(j = "Your_Differentiation", bg = "#e8f4f8", part = "body") |>
+  flextable::bold(j = "Your_Differentiation")
+```
+
+---
+
+# Tactical Campaign Recommendations
+
+## High-Priority Actions
+
+```{r}
+#| label: tactical-priorities
+
+tactics <- base::data.frame(
+  Priority = base::c(1L, 2L, 3L, 4L, 5L, 6L),
+  Action = base::c(
+    "Launch 'People, Not Politics' campaign identity",
+    "Community Listening Tour - all neighborhoods",
+    "Transparent Budget Forums",
+    "Problem-Solving Town Halls",
+    "School Board Success Stories",
+    "Military and Veteran Community Engagement"
+  ),
+  Description = base::c(
+    "Establish clear, consistent messaging across all materials emphasizing unity and service",
+    "Visit every neighborhood, listen to residents, take visible notes, show genuine engagement",
+    "Walk residents through city finances transparently; show professional competence without spin",
+    "Host forums on specific challenges; facilitate discussion; demonstrate inclusive leadership",
+    "Share concrete examples of bringing diverse stakeholders together for community benefit",
+    "Connect with military families through service-oriented messaging and proven fiscal stewardship"
+  ),
+  Timeline = base::c(
+    "Week 1 - foundational",
+    "Ongoing throughout campaign",
+    "Monthly through election",
+    "Bi-weekly through election",
+    "As relevant in forums/media",
+    "Ongoing engagement"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(tactics) |>
+  flextable::set_header_labels(
+    Priority = "Priority",
+    Action = "Campaign Action",
+    Description = "Implementation",
+    Timeline = "Schedule"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Description", width = 3.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bg(i = base::c(1L, 2L), bg = "#fff9c4", part = "body")
+```
+
+---
+
+## Sample Content Strategies
+
+### Weekly "Solutions for Schertz" Social Media Series
+
+Post real solutions to real problems, focusing on data and community benefit—never partisan politics:
+
+- Week 1: "How Strategic Planning Helps Our Infrastructure" (with simple chart)
+- Week 2: "Community Voices: What Residents Are Telling Me" (listening tour highlights)
+- Week 3: "Making Tax Dollars Work Harder" (efficiency example from school board)
+- Week 4: "Bringing Our Community Together" (example of consensus-building)
+- Week 5: "What the Data Shows About Growth" (factual analysis, no spin)
+- Week 6: "Serving All of Schertz" (neighborhood spotlight series)
+
+**Format:** Informative, positive, solution-focused. Always ends with "People, Not Politics."
+
+### Monthly Community Forums
+
+Host regular forums focused on specific topics, designed to facilitate discussion and build consensus:
+
+- **Format:** Present data and options objectively → Facilitate community input → Identify common ground → Commit to evidence-based decision-making
+- **Topics:** Infrastructure planning, fiscal management, growth strategy, quality of life
+- **Goal:** Demonstrate inclusive leadership and professional competence without political posturing
+
+---
+
+## Engagement with Military Community
+
+Schertz's military families value service, competence, and results over political rhetoric.
+
+```{r}
+#| label: military-alignment
+
+military_values <- base::data.frame(
+  Military_Value = base::c(
+    "Service Over Self",
+    "Mission Focus",
+    "Competence Matters",
+    "Integrity",
+    "Teamwork",
+    "Results-Oriented"
+  ),
+  Your_Alignment = base::c(
+    "Volunteer school board service; running to serve community, not for political career",
+    "Clear focus on serving residents with competent city governance—not political theater",
+    "Professional credentials (CPA) + Proven track record (School Board) = Demonstrated capability",
+    "Transparent, honest communication about challenges and trade-offs; no political spin",
+    "Building consensus across diverse viewpoints; inclusive community leadership",
+    "Data-driven approach that measures outcomes and demonstrates continuous improvement"
+  ),
+  Campaign_Message = base::c(
+    "\"I serve because it matters, not because it advances my career\"",
+    "\"My mission is simple: excellent city services for all residents\"",
+    "\"Competence shouldn't be political—you deserve professional leadership\"",
+    "\"I'll always tell you the truth, even when it's complicated\"",
+    "\"We accomplish more together than divided\"",
+    "\"Show me results, not rhetoric—that's my standard for myself\""
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(military_values) |>
+  flextable::set_header_labels(
+    Military_Value = "Value",
+    Your_Alignment = "How You Embody It",
+    Campaign_Message = "Message"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "Your_Alignment", width = 3) |>
+  flextable::width(j = "Campaign_Message", width = 2.5) |>
+  flextable::bold(part = "header") |>
+  flextable::italic(j = "Campaign_Message")
+```
+
+**Engagement Strategy:** Attend military community events, speak the language of service and mission accomplishment, emphasize results over politics.
+
+---
+
+# Implementation Checklist
+
+```{r}
+#| label: implementation-checklist
+
+checklist <- base::data.frame(
+  Task = base::c(
+    "Finalize 'People, Not Politics' messaging",
+    "Design campaign materials with unifying imagery",
+    "Plan community listening tour schedule",
+    "Develop transparent budget forum presentations",
+    "Prepare non-partisan talking points for forums",
+    "Create website emphasizing service and solutions",
+    "Schedule problem-solving town halls",
+    "Develop social media content calendar",
+    "Prepare school board success story examples",
+    "Plan military community engagement"
+  ),
+  Priority = base::c(
+    "VERY HIGH",
+    "VERY HIGH",
+    "VERY HIGH",
+    "HIGH",
+    "VERY HIGH",
+    "VERY HIGH",
+    "HIGH",
+    "HIGH",
+    "HIGH",
+    "MEDIUM"
+  ),
+  Timeline = base::c(
+    "Week 1",
+    "Week 1",
+    "Week 1",
+    "Week 2",
+    "Week 1",
+    "Weeks 1-2",
+    "Weeks 2-3",
+    "Week 1",
+    "Week 1",
+    "Ongoing"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(checklist) |>
+  flextable::set_header_labels(
+    Task = "Campaign Task",
+    Priority = "Priority",
+    Timeline = "Timeline"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Task", width = 4) |>
+  flextable::bold(part = "header") |>
+  flextable::color(
+    i = ~ Priority == "VERY HIGH",
+    j = "Priority",
+    color = "#C62828"
+  ) |>
+  flextable::bold(
+    i = ~ Priority == "VERY HIGH",
+    j = "Priority"
+  )
+```
+
+---
+
+# Key Messages Summary
+
+## Your Core Positioning
+
+**"People, Not Politics"**
+
+You are the candidate who:
+
+- **Serves everyone:** Not a party, not a faction, not special interests—the entire Schertz community
+- **Uses evidence:** Data-driven decisions based on what works, not what fits a political narrative  
+- **Brings people together:** Inclusive leadership that builds consensus rather than division
+- **Delivers results:** Professional competence that produces tangible outcomes for residents
+- **Puts community first:** Volunteer service demonstrates genuine commitment beyond political ambition
+
+## What Makes You Unique
+
+```{r}
+#| label: unique-positioning
+
+positioning <- base::data.frame(
+  Attribute = base::c(
+    "Your Background",
+    "Your Experience",
+    "Your Approach",
+    "Your Commitment",
+    "Your Promise"
+  ),
+  Differentiation = base::c(
+    "CPA credential + Published author on public management = Professional expertise in exactly what cities need",
+    "Current school board trustee = Proven ability to govern effectively without political drama",
+    "Data-driven, evidence-based methodology = Solutions that work for people, not ideological purity",
+    "Volunteer public service = Running to serve community, not advance political career",
+    "Inclusive, responsive, competent leadership = Working for all of Schertz with integrity and skill"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(positioning) |>
+  flextable::set_header_labels(
+    Attribute = "Element",
+    Differentiation = "Your Unique Value"
+  ) |>
+  flextable::theme_vanilla() |>
+  flextable::autofit() |>
+  flextable::width(j = "Differentiation", width = 5) |>
+  flextable::bold(part = "header") |>
+  flextable::bold(j = "Attribute") |>
+  flextable::bg(j = "Differentiation", bg = "#e8f4f8")
+```
+
+---
+
+# Closing Recommendation
+
+## Why "People, Not Politics" Wins
+
+This campaign message is powerful because:
+
+1. **It's Authentic:** Your track record demonstrates you genuinely operate this way
+2. **It's Inclusive:** Appeals across the political spectrum—everyone is tired of political division
+3. **It's Positive:** Focuses on unity and solutions, not attacks or grievances
+4. **It's Differentiating:** Sets you apart from candidates who bring political baggage
+5. **It's Timely:** Resonates in an era when people are exhausted by partisan conflict
+
+## Your Competitive Advantage
+
+You bring **professional credentials without political baggage**. Most candidates are either:
+
+- Politically connected but lacking relevant expertise, OR
+- Professionally qualified but tied to partisan positions
+
+You are neither. You're a CPA with proven public service who focuses on serving people through competent, evidence-based leadership. That combination is rare and valuable.
+
+## Campaign Success Factors
+
+```{r}
+#| label: success-factors
+
+success <- base::data.frame(
+  Factor = base::c(
+    "Message Discipline",
+    "Inclusive Engagement",
+    "Professional Credibility",
+    "Positive Tone",
+    "Demonstrated Results"
+  ),
+  Implementation = base::c(
+    "Every communication reinforces 'People, Not Politics'—stay on message consistently",
+    "Engage all neighborhoods, all demographics, all viewpoints—demonstrate inclusive leadership",
+    "Lead with your CPA credentials and school board service—let competence speak",
+    "Stay relentlessly positive and solution-focused—no attacks, no negativity, no partisan rhetoric",
+    "Share concrete examples from school board of bringing people together to serve community"
+  ),
+  stringsAsFactors = FALSE
+)
+
+flextable::flextable(success) |>
+  flextable::set_header_labels(
+    Factor = "Success Factor",
+    Implementation = "How to Execute"
+  ) |>
+  flextable::theme_booktabs() |>
+  flextable::autofit() |>
+  flextable::width(j = "Implementation", width = 4.5) |>
+  flextable::bold(part = "header") |>
+  flextable::bold(j = "Factor")
+```
+
+---
+
+**Final Message:** Your campaign is fundamentally about **service to community**. You're not running to advance a political agenda or represent a faction. You're running because you have the professional skills and proven track record to serve Schertz effectively. Every voter—regardless of their political leanings—deserves competent, responsive, honest city leadership. That's what you offer. That's what "People, Not Politics" means. Stay true to this message, demonstrate it through inclusive engagement, and deliver it with the confidence that comes from genuine competence and integrity.
+
+The best campaign is one that reflects who you really are. This message does that authentically.
